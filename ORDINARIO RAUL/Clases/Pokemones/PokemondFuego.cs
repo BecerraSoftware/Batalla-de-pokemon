@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORDINARIO_RAUL.Clases
+namespace ORDINARIO_RAUL.Clases.Pokemones
 {
-    public abstract class Pokemon
+    public class PokemondFuego
     {
 
-        public double Vida;
-        public 
     }
-
-
-
 }

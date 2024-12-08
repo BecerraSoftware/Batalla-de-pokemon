@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+
+using ORDINARIO_RAUL.Clases;
+using ORDINARIO_RAUL.PokemonAtributos;
+using ORDINARIO_RAUL.Enums;
+using System;
 
 namespace ORDINARIO_RAUL
 {
@@ -15,8 +17,9 @@ namespace ORDINARIO_RAUL
 
 
 
-
-
         }
+
     }
+
+   
 }

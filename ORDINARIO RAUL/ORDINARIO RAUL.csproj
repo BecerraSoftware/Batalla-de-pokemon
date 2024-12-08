@@ -43,8 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Ataque.cs" />
-    <Compile Include="Clases\Pokemond.cs" />
+    <Compile Include="Clases\Batalla.cs" />
+    <Compile Include="Clases\MovimientoBase.cs" />
+    <Compile Include="Clases\Pokemon.cs" />
+    <Compile Include="Clases\Pokemones\PokemondFuego.cs" />
+    <Compile Include="Enums\MovimientoClase.cs" />
+    <Compile Include="Enums\TiposPokemond.cs" />
+    <Compile Include="Interfaces\IEfecto.cs" />
+    <Compile Include="Interfaces\IMovimiento.cs" />
+    <Compile Include="Interfaces\IPokemond.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

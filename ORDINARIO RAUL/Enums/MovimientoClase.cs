@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORDINARIO_RAUL.Clases
+namespace ORDINARIO_RAUL.Enums
 {
-    public class Ataque
+    public enum MovimientoClase
     {
-
+        Fisico,
+        Especial,
+        Estado
     }
 }
