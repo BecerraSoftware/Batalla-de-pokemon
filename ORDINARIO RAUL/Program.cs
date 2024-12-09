@@ -11,7 +11,7 @@ namespace PokemonBattle
     {
         static void Main(string[] arg)
         {
-            var quemadura = new Efecto("Quemadura", (atacante, objetivo, batalla) =>
+            var quemadura = new Efecto("Quemadura", 2, (atacante, objetivo, batalla) =>
             {
                 int daño = objetivo.VidaMaxima/22; // Daño residual del 1/16 de la vida máxima
                 objetivo.RecibirDaño(daño);

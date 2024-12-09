@@ -69,6 +69,7 @@ namespace ORDINARIO_RAUL.Clases
                     break;
                 }
                 OnAplicarEfectos?.Invoke(primero, segundo, this);
+
                 OnAplicarEfectos?.Invoke(segundo, primero, this);
 
                 if (primero.VidaActual <= 0)
