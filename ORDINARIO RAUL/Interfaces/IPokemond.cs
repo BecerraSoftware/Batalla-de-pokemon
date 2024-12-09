@@ -5,18 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ORDINARIO_RAUL.Interfaces;
+using ORDINARIO_RAUL.Enums;
 
 namespace ORDINARIO_RAUL.PokemonAtributos
 {
     public interface IPokemond
     {
-        double Vida { get; set; }
+        string Name { get; }
+        int Nivel { get; set; }
+        double VidaActual { get; set; }
+        double VidaMaxima { get; set; }
         int Ataque { get; set; }
         int AtaqueEspecial { get; set; }
         double Defenza { get; set; }
         double DefenzaEspecial { get; set; }
         double Velocidad { get; set; }
+        List<TiposPokemond> Tipos { get; set; }
 
+        List<Movimiento> Movimientos { get; set; }
+         void RecibirDaño(int daño);
 
     }
 }

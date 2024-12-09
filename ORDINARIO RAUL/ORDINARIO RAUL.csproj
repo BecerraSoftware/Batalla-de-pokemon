@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Batalla.cs" />
-    <Compile Include="Clases\MovimientoBase.cs" />
+    <Compile Include="Clases\Movimiento.cs" />
     <Compile Include="Clases\Pokemon.cs" />
     <Compile Include="Clases\Pokemones\PokemondFuego.cs" />
     <Compile Include="Enums\MovimientoClase.cs" />

@@ -14,6 +14,7 @@ namespace ORDINARIO_RAUL.Enums
         Psiquico,
         Veneno,
         Insecto,
-        Normal
+        Normal,
+        Electrico,
     }
 }

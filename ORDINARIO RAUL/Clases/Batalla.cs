@@ -1,4 +1,7 @@
-﻿using ORDINARIO_RAUL.PokemonAtributos;
+﻿using ORDINARIO_RAUL.Enums;
+using ORDINARIO_RAUL.Interfaces;
+using ORDINARIO_RAUL.PokemonAtributos;
+using PokemonBattle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,64 +15,110 @@ namespace ORDINARIO_RAUL.Clases
         private readonly Pokemon _pokemond1;
         private readonly Pokemon _pokemond2;
 
-        public event Action<Pokemon, MovimientoBase> AntesDeAtaque;
-        public event Action<Pokemon,MovimientoBase> DespuesDeAtaque;
-
-
-        public Batalla(Pokemon pokemod1, Pokemon pokemon2)
+        public Batalla(Pokemon pokemon1, Pokemon pokemon2)
         {
-            _pokemond1 = pokemod1;
+            _pokemond1 = pokemon1;
             _pokemond2 = pokemon2;
         }
 
-        public void IniciarTurno(MovimientoBase movimiento1,MovimientoBase movimiento2)
+        public void Iniciar()
         {
-          var (primerPokemon, segundoPokemon, primerMovimiento, segundoMovimiento) =
-                DeterminarOrdenDeAtaque(movimiento1, movimiento2);
-
-            if (!EjecutarMovimiento(primerPokemon, segundoPokemon, primerMovimiento))
-                return;
-
-            EjecutarMovimiento(segundoPokemon, primerPokemon, segundoMovimiento);
-
-            
-        }
-        private bool EjecutarMovimiento(Pokemon atacante, Pokemon objetivo, MovimientoBase movimiento)
-        {
-            // Evento: Antes de atacar
-            AntesDeAtaque?.Invoke(atacante, movimiento);
-
-            // Ejecutar el movimiento
-            movimiento.EjecutarMovimiento(atacante, objetivo, this);
-
-            // Revisar si el objetivo ha caído
-            if (objetivo.Vida <= 0)
+            while (_pokemond1.VidaActual > 0 && _pokemond2.VidaActual > 0)
             {
-                Console.WriteLine($"{objetivo.Name} ha sido derrotado.");
-                return false; // Terminar el turno
+                Console.WriteLine("----new Turnoo---");
+                _pokemond1.MostrarEstado();
+                _pokemond2.MostrarEstado();
+
+                //Seleccionar movimientos
+                IMovimiento movimiento1 = SeleccionarMovimiento(_pokemond1);
+                IMovimiento movimiento2 = SeleccionarMovimiento(_pokemond2);
+
+                // Determinar orden basado en velocidad
+                IPokemond primero, segundo;
+                IMovimiento movPrimero, movSegundo;
+
+                if (_pokemond1.Velocidad >= _pokemond2.Velocidad)
+                {
+                    primero = _pokemond1;
+                    movPrimero = movimiento1;
+                    segundo = _pokemond2;
+                    movSegundo = movimiento2;
+                }
+                else
+                {
+                    primero = _pokemond2;
+                    movPrimero = movimiento2;
+                    segundo = _pokemond1;
+                    movSegundo = movimiento1;
+                }
+
+                // Ejecutar movimientos en orden
+                movPrimero.EjecutarMovimiento(primero, segundo, this);
+
+                if (segundo.VidaActual > 0)
+                {
+                    movSegundo.EjecutarMovimiento(segundo, primero, this);
+                }
+                else
+                {
+                    Console.WriteLine($"{segundo.Name} ha sido derrotado.");
+                    break;
+                }
+
+                if (primero.VidaActual <= 0)
+                {
+                    Console.WriteLine($"{primero.Name} ha sido derrotado.");
+                    break;
+                }
             }
 
-            // Evento: Después de atacar
-            DespuesDeAtaque?.Invoke(atacante, movimiento);
-            return true;
+            Console.WriteLine("\n--- Fin de la batalla ---");
+            _pokemond1.MostrarEstado();
+            _pokemond2.MostrarEstado();
+        
+
+
+
         }
-        private (Pokemon, Pokemon, MovimientoBase, MovimientoBase) DeterminarOrdenDeAtaque(MovimientoBase movimiento1, MovimientoBase movimiento2)
+        private IMovimiento SeleccionarMovimiento(Pokemon pokemon)
         {
-            if (_pokemond1.Velocidad > _pokemond2.Velocidad || movimiento1.Precision > movimiento2.Precision)
+            Console.WriteLine($"\n{pokemon.Name}, selecciona un movimiento:");
+            for (int i = 0; i < pokemon.Movimientos.Count; i++)
             {
-                return (_pokemond1, _pokemond2, movimiento1, movimiento2);
+                Console.WriteLine($"{i + 1}. {pokemon.Movimientos[i].Nombre}");
             }
-            return (_pokemond2, _pokemond1, movimiento2, movimiento1);
+            int opcion = int.Parse(Console.ReadLine()) - 1;
+            return pokemon.Movimientos[opcion];
         }
-
-        private void EstadoBatalla()
+        public double CalcularEfectividad(TiposPokemond tipoMovimiento, List<TiposPokemond> tiposDefensor)
         {
-            Console.WriteLine($"Estado de los Pokemonds: " +
-                $" {_pokemond1}" +
-                $"\n " +
-                $"{_pokemond2} ");
+            var fortalezas = new Dictionary<TiposPokemond, List<TiposPokemond>>
+            {
+                { TiposPokemond.Fuego, new List<TiposPokemond> { TiposPokemond.Hierba, TiposPokemond.Insecto } },
+                { TiposPokemond.Agua, new List<TiposPokemond> { TiposPokemond.Fuego } },
+                { TiposPokemond.Hierba, new List<TiposPokemond> { TiposPokemond.Agua } },
+                { TiposPokemond.Electrico, new List<TiposPokemond> { TiposPokemond.Agua } }
+            };
+
+            var debilidades = new Dictionary<TiposPokemond, List<TiposPokemond>>
+            {
+                { TiposPokemond.Fuego, new List<TiposPokemond> { TiposPokemond.Agua } },
+                { TiposPokemond.Agua, new List<TiposPokemond> { TiposPokemond.Hierba } },
+                { TiposPokemond.Hierba, new List<TiposPokemond> { TiposPokemond.Fuego } },
+                { TiposPokemond.Electrico, new List<TiposPokemond> { TiposPokemond.Hierba } }
+            };
+
+            double efectividad = 1.0;
+
+            foreach (var tipo in tiposDefensor)
+            {
+                if (fortalezas.ContainsKey(tipoMovimiento) && fortalezas[tipoMovimiento].Contains(tipo))
+                    efectividad *= 2.0;
+                if (debilidades.ContainsKey(tipoMovimiento) && debilidades[tipoMovimiento].Contains(tipo))
+                    efectividad *= 0.5;
+            }
+
+            return efectividad;
         }
-
-
     }
 }
