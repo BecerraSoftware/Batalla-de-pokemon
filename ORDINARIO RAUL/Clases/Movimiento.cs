@@ -49,19 +49,13 @@ namespace ORDINARIO_RAUL.Clases
                 }
                 //agregar efectos al evento de batalla
                 foreach (var efecto in Efectos)
-                {
-                    //hacer el efecto hasta que duracion sea 0
-                    if (efecto.Duracion == 0)
-                    {
-                        Console.WriteLine("Se acabo la quemadura");
-                    }
+                {                   
                     efecto.Aplicar(atacante, objetivo, batalla);
-                    efecto.Duracion--;
-
-
-
+                    
                 }
-               
+
+                atacante.Velocidad = 10; //perdon profe no se me ocurrio otra cosa xd 
+
 
             }
             else

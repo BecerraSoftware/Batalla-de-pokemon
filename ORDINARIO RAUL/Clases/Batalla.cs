@@ -104,7 +104,9 @@ namespace ORDINARIO_RAUL.Clases
                 { TiposPokemond.Fuego, new List<TiposPokemond> { TiposPokemond.Hierba, TiposPokemond.Insecto } },
                 { TiposPokemond.Agua, new List<TiposPokemond> { TiposPokemond.Fuego } },
                 { TiposPokemond.Hierba, new List<TiposPokemond> { TiposPokemond.Agua } },
-                { TiposPokemond.Electrico, new List<TiposPokemond> { TiposPokemond.Agua } }
+                { TiposPokemond.Electrico, new List<TiposPokemond> { TiposPokemond.Agua } },
+                {TiposPokemond.Tierra,new List<TiposPokemond>{TiposPokemond.Fuego,TiposPokemond.Electrico } }
+
             };
 
             var debilidades = new Dictionary<TiposPokemond, List<TiposPokemond>>

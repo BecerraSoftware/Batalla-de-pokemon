@@ -16,5 +16,6 @@ namespace ORDINARIO_RAUL.Enums
         Insecto,
         Normal,
         Electrico,
+        Tierra
     }
 }

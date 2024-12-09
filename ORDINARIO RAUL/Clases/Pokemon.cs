@@ -13,7 +13,7 @@ namespace ORDINARIO_RAUL.Clases
         public int Nivel { get; set; }
 
         private int _vidaMaxima;
-        public int VidaMaxima { get { if (_vidaMaxima > 100) { return 100; } return _vidaMaxima; } set => _vidaMaxima = value; }
+        public int VidaMaxima { get { return _vidaMaxima; } set => _vidaMaxima = value; }
 
         private int _vidaActual;
         public int VidaActual { get => _vidaActual; set => _vidaActual = value > 0 ? value : 0; }
