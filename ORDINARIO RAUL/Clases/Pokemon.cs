@@ -12,11 +12,11 @@ namespace ORDINARIO_RAUL.Clases
 
         public int Nivel { get; set; }
 
-        private double _vidaMaxima;
-        public double VidaMaxima { get { if (_vidaMaxima > 100) { return 100; } return _vidaMaxima; } set => _vidaMaxima = value; }
+        private int _vidaMaxima;
+        public int VidaMaxima { get { if (_vidaMaxima > 100) { return 100; } return _vidaMaxima; } set => _vidaMaxima = value; }
 
-        private double _vidaActual;
-        public double VidaActual { get => _vidaActual; set => _vidaActual = value > 0 ? value : 0; }
+        private int _vidaActual;
+        public int VidaActual { get => _vidaActual; set => _vidaActual = value > 0 ? value : 0; }
 
         private int _ataque;
         public int Ataque { get => _ataque; set => _ataque = value > 0 ? value : 0; }
@@ -35,7 +35,9 @@ namespace ORDINARIO_RAUL.Clases
 
         public List<Movimiento> Movimientos { get; set; }
 
-        public Pokemon(string name, double vidaMaxima, int ataque, int ataqueEspecial, double defenza,
+        public bool Paralizado;
+
+        public Pokemon(string name, int vidaMaxima, int ataque, int ataqueEspecial, double defenza,
             double defenzaEspecial, double velocidad, List<TiposPokemond> tipos, List<Movimiento> movimientos)
         {
             _name = name;
@@ -52,61 +54,8 @@ namespace ORDINARIO_RAUL.Clases
 
         public void RecibirDaño(int daño)
         {
-            VidaActual = Math.Max(VidaActual - daño,0);
+            VidaActual = Math.Max(VidaActual - daño, 0);
         }
-
-
-
-        //private TiposPokemond _tipoPrimario;
-        //private TiposPokemond? _tipoSecundario;
-
-        //public TiposPokemond TipoPrimario
-        //{
-        //    get => _tipoPrimario;
-        //    private set
-        //    {
-        //        if (_tipoSecundario.HasValue && _tipoSecundario.Value == value)
-        //        {
-        //            throw new Exception("No puede tener dos iguales tipos secundario");
-        //        }
-        //        _tipoPrimario = value;
-        //    }
-        //}
-
-        //public TiposPokemond? TipoSecundario
-        //{
-        //    get => _tipoSecundario;
-        //    private set
-        //    {
-        //        if (value.HasValue && value.Value == _tipoPrimario) { throw new Exception("No puede tener dos iguales tipos secundario"); }
-        //        _tipoSecundario = value;
-        //    }
-        ////}
-
-        //public Pokemon(string nombre, double vidaMaxima, int ataque, int ataqueEspecial, double defenza, double defenzaEspecial, double velocidad, TiposPokemond tipoPrimario, TiposPokemond tipoSecundario)
-        //{
-        //    VidaMaxima = vidaMaxima;
-        //    VidaActual = VidaMaxima;
-        //    Ataque = ataque;
-        //    AtaqueEspecial = ataqueEspecial;
-        //    Defenza = defenza;
-        //    DefenzaEspecial = defenzaEspecial;
-        //    Velocidad = velocidad;
-        //    TipoPrimario = tipoPrimario;
-        //    TipoSecundario = tipoSecundario;
-
-        //}   
-        //public Pokemon(string nombre, double vida, int ataque, int ataqueEspecial, double defenza, double defenzaEspecial, double velocidad, TiposPokemond tipoPrimario)
-        //{
-        //    //Vida = vida;
-        //    Ataque = ataque;
-        //    AtaqueEspecial = ataqueEspecial;
-        //    Defenza = defenza;
-        //    DefenzaEspecial = defenzaEspecial;
-        //    Velocidad = velocidad;
-        //    TipoPrimario = tipoPrimario;
-
-        //}
 
         public void MostrarEstado()
         {

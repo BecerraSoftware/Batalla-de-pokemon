@@ -44,11 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Batalla.cs" />
+    <Compile Include="Clases\Efecto.cs" />
     <Compile Include="Clases\Movimiento.cs" />
     <Compile Include="Clases\Pokemon.cs" />
-    <Compile Include="Clases\Pokemones\PokemondFuego.cs" />
+    <Compile Include="Efectos\Paralizar.cs" />
     <Compile Include="Enums\MovimientoClase.cs" />
     <Compile Include="Enums\TiposPokemond.cs" />
+    <Compile Include="Interfaces\ICalculadorDeDaño.cs" />
     <Compile Include="Interfaces\IEfecto.cs" />
     <Compile Include="Interfaces\IMovimiento.cs" />
     <Compile Include="Interfaces\IPokemond.cs" />

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ORDINARIO_RAUL.Enums;
+﻿using ORDINARIO_RAUL.Enums;
 using ORDINARIO_RAUL.Interfaces;
 using ORDINARIO_RAUL.PokemonAtributos;
-using PokemonBattle;
+using System;
+using System.Collections.Generic;
 
 namespace ORDINARIO_RAUL.Clases
 {
@@ -20,6 +16,8 @@ namespace ORDINARIO_RAUL.Clases
 
         public int? Potencia { get; set; }
         public int? Precision { get; set; }
+        public List<Efecto> Efectos { get; }
+
 
         public Movimiento(string nombre, TiposPokemond tipo, MovimientoClase clase,
             int? potencia, int? precision)
@@ -32,9 +30,12 @@ namespace ORDINARIO_RAUL.Clases
             Clase = clase;
             Potencia = potencia;
             Precision = precision;
+            Efectos = new List<Efecto>();
         }
         public void EjecutarMovimiento(IPokemond atacante, IPokemond objetivo, Batalla batalla)
         {
+
+
             if (Precision == null || new Random().Next(1, 101) <= Precision)
             {
                 if (Potencia.HasValue)
@@ -45,6 +46,11 @@ namespace ORDINARIO_RAUL.Clases
                     int daño = (int)((((2 * atacante.Nivel / 5.0 + 2) * Potencia.Value * ataque / defensa) / 50 + 2) * efectividad);
                     objetivo.RecibirDaño(daño);
                     Console.WriteLine($"{atacante.Name} usó {Nombre} y causó {daño} de daño. (Efectividad: {efectividad})");
+                }
+                //agregar efectos al evento de batalla
+                foreach (var efecto in Efectos)
+                {
+                    batalla.OnAplicarEfectos += efecto.Aplicar;
                 }
             }
             else

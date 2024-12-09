@@ -13,8 +13,8 @@ namespace ORDINARIO_RAUL.PokemonAtributos
     {
         string Name { get; }
         int Nivel { get; set; }
-        double VidaActual { get; set; }
-        double VidaMaxima { get; set; }
+        int VidaActual { get; set; }
+        int VidaMaxima { get; set; }
         int Ataque { get; set; }
         int AtaqueEspecial { get; set; }
         double Defenza { get; set; }

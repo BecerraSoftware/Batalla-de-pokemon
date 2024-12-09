@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ORDINARIO_RAUL.Clases;
 
-namespace ORDINARIO_RAUL.Clases.Pokemones
+namespace ORDINARIO_RAUL.Efectos
 {
-    public class PokemondFuego
-    {
-
-    }
 }

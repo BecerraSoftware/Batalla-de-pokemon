@@ -15,6 +15,9 @@ namespace ORDINARIO_RAUL.Clases
         private readonly Pokemon _pokemond1;
         private readonly Pokemon _pokemond2;
 
+        //evento maneja efectos
+        public event Action<IPokemond, IPokemond, Batalla> OnAplicarEfectos;
+
         public Batalla(Pokemon pokemon1, Pokemon pokemon2)
         {
             _pokemond1 = pokemon1;
@@ -52,6 +55,7 @@ namespace ORDINARIO_RAUL.Clases
                     movSegundo = movimiento1;
                 }
 
+
                 // Ejecutar movimientos en orden
                 movPrimero.EjecutarMovimiento(primero, segundo, this);
 
@@ -64,6 +68,8 @@ namespace ORDINARIO_RAUL.Clases
                     Console.WriteLine($"{segundo.Name} ha sido derrotado.");
                     break;
                 }
+                OnAplicarEfectos?.Invoke(primero, segundo, this);
+                OnAplicarEfectos?.Invoke(segundo, primero, this);
 
                 if (primero.VidaActual <= 0)
                 {
@@ -75,9 +81,9 @@ namespace ORDINARIO_RAUL.Clases
             Console.WriteLine("\n--- Fin de la batalla ---");
             _pokemond1.MostrarEstado();
             _pokemond2.MostrarEstado();
-        
-
-
+        }
+        private void AplicarEfectos()
+        {
 
         }
         private IMovimiento SeleccionarMovimiento(Pokemon pokemon)
