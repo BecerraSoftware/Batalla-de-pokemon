@@ -15,13 +15,13 @@ namespace PokemonBattle
            var ataquePrimero = new Efecto("Ataque Primero", 1, (atacante, objetivo, batalla) =>
             {
                 atacante.Velocidad = 1000;
-                Console.WriteLine($"{objetivo.Name} ataca Primero");
+                Console.WriteLine($"{atacante.Name} ataca Primero");
             });
 
             var AumentarDefenza50= new Efecto("Aumentar Defenza 50", 2, (atacante, objetivo, batalla) =>
             {
-                objetivo.DefenzaEspecial += 50;
-                Console.WriteLine($"{objetivo.Name} aumento su defenza en 50.");
+                atacante.DefenzaEspecial += 50;
+                Console.WriteLine($"{atacante.Name} aumento su defenza en 50.");
             }); 
 
             //efectos de Ludicolo
